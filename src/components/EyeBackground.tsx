@@ -96,9 +96,21 @@ export default function EyeBackground() {
   const eyeStyle = {
     height: eyeHeight,
     transition: 'height 0.3s ease',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   const pupilVisible = isMouseOnScreen && !isWinking;
+
+  // Slit style for closed eyes
+  const slitStyle = {
+    width: 'min(8vw, 100px)',
+    height: '4px',
+    background: 'black',
+    borderRadius: '2px',
+    margin: '0 auto',
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
@@ -109,7 +121,7 @@ export default function EyeBackground() {
           className="relative bg-white rounded-full overflow-hidden"
           style={{ width: 'min(38vw, 460px)', ...eyeStyle }}
         >
-          {pupilVisible && (
+          {pupilVisible ? (
             <motion.div
               className="absolute rounded-full bg-black"
               style={{
@@ -135,6 +147,8 @@ export default function EyeBackground() {
                 }}
               />
             </motion.div>
+          ) : (
+            <div style={slitStyle} />
           )}
         </div>
 
@@ -144,7 +158,7 @@ export default function EyeBackground() {
           className="relative bg-white rounded-full overflow-hidden"
           style={{ width: 'min(38vw, 460px)', ...eyeStyle }}
         >
-          {pupilVisible && (
+          {pupilVisible ? (
             <motion.div
               className="absolute rounded-full bg-black"
               style={{
@@ -170,6 +184,8 @@ export default function EyeBackground() {
                 }}
               />
             </motion.div>
+          ) : (
+            <div style={slitStyle} />
           )}
         </div>
       </div>
