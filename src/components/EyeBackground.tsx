@@ -91,7 +91,7 @@ export default function EyeBackground() {
 
   const eyeHeight = isMouseOnScreen && !isWinking
     ? 'min(12vw, 150px)'
-    : '2px';
+    : '4px';
 
   const eyeStyle = {
     height: eyeHeight,
@@ -107,7 +107,7 @@ export default function EyeBackground() {
         <div
           ref={leftEyeRef}
           className="relative bg-white rounded-full overflow-hidden"
-          style={{ width: 'min(30vw, 360px)', ...eyeStyle }}
+          style={{ width: 'min(38vw, 460px)', ...eyeStyle }}
         >
           {pupilVisible && (
             <motion.div
@@ -142,7 +142,7 @@ export default function EyeBackground() {
         <div
           ref={rightEyeRef}
           className="relative bg-white rounded-full overflow-hidden"
-          style={{ width: 'min(30vw, 360px)', ...eyeStyle }}
+          style={{ width: 'min(38vw, 460px)', ...eyeStyle }}
         >
           {pupilVisible && (
             <motion.div
