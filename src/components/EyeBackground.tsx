@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 export default function EyeBackground() {
-  const [isMouseOnScreen, setIsMouseOnScreen] = useState(false);
+  const [isMouseOnScreen, setIsMouseOnScreen] = useState(false); // default closed
   const [isWinking, setIsWinking] = useState(false);
   const mouseX = useRef(window.innerWidth / 2);
   const mouseY = useRef(window.innerHeight / 2);
@@ -23,7 +23,7 @@ export default function EyeBackground() {
   // Track mouse position and compute pupil offsets
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setIsMouseOnScreen(true);
+      if (!isMouseOnScreen) setIsMouseOnScreen(true);
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
 
@@ -110,6 +110,7 @@ export default function EyeBackground() {
     background: 'black',
     borderRadius: '2px',
     margin: '0 auto',
+    boxShadow: '0 0 8px 2px #222',
   };
 
   return (
