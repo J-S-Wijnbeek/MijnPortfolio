@@ -1,62 +1,21 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-
-const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
-];
-
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <nav className="relative z-50 w-full px-6 py-4 flex items-center justify-between border-b border-white/10 bg-black/60 backdrop-blur-sm">
-      <a href="#home" className="text-xl font-bold text-white tracking-tight">
+    <nav className="w-full px-10 py-6 bg-black/80 backdrop-blur-sm flex items-center justify-between z-10">
+      <a
+        href="#home"
+        className="text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text"
+      >
         My Portfolio
       </a>
 
-      {/* Desktop links */}
-      <ul className="hidden md:flex items-center gap-8">
-        {navLinks.map((link) => (
-          <li key={link.href}>
-            <a
-              href={link.href}
-              className="text-white/70 hover:text-white transition-colors text-sm font-medium"
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      {/* Mobile menu toggle */}
-      <button
-        className="md:hidden text-white"
-        onClick={() => setOpen((o) => !o)}
-        aria-label="Toggle menu"
-      >
-        {open ? <X size={22} /> : <Menu size={22} />}
-      </button>
-
-      {/* Mobile dropdown */}
-      {open && (
-        <ul className="absolute top-full left-0 w-full bg-black/90 border-b border-white/10 flex flex-col md:hidden">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block px-6 py-3 text-white/70 hover:text-white hover:bg-white/5 text-sm font-medium"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="flex items-center gap-8 text-lg font-medium">
+        <a href="#home" className="bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">Home</a>
+        <a href="#about" className="bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">Over Mij</a>
+        <a href="#skills" className="bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">Skills</a>
+        <a href="#softskills" className="bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">Soft Skills</a>
+        <a href="#projects" className="bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">Projects</a>
+        <a href="#contact" className="bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">Contact</a>
+      </div>
     </nav>
   );
 }

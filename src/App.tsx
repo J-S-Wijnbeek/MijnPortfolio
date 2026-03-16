@@ -1,137 +1,179 @@
 import EyeBackground from './components/EyeBackground';
 import Navbar from './components/Navbar';
+import SkillsSection from './components/SkillsSection';
+import SoftSkillsSection from './components/soft-skills-section';
+import About from './components/about';
 import ProjectCard from './components/ProjectCard';
-import { Github, Mail, Linkedin } from 'lucide-react';
-import { HERO, projects, skills, education, CONTACT } from './data';
+
+const projectPlaceholders = [
+  {
+    title: 'Project 1',
+    description: 'Korte beschrijving van project 1 komt hier.',
+  },
+  {
+    title: 'Project 2',
+    description: 'Korte beschrijving van project 2 komt hier.',
+  },
+  {
+    title: 'Project 3',
+    description: 'Korte beschrijving van project 3 komt hier.',
+  },
+  {
+    title: 'Project 4',
+    description: 'Korte beschrijving van project 4 komt hier.',
+  },
+  {
+    title: 'Project 5',
+    description: 'Korte beschrijving van project 5 komt hier.',
+  },
+  {
+    title: 'Project 6',
+    description: 'Korte beschrijving van project 6 komt hier.',
+  },
+  {
+    title: 'Project 7',
+    description: 'Korte beschrijving van project 7 komt hier.',
+  },
+  {
+    title: 'Project 8',
+    description: 'Korte beschrijving van project 8 komt hier.',
+  },
+  {
+    title: 'Project 9',
+    description: 'Korte beschrijving van project 9 komt hier.',
+  },
+  {
+    title: 'Project 10',
+    description: 'Korte beschrijving van project 10 komt hier.',
+  },
+  {
+    title: 'Project 11',
+    description: 'Korte beschrijving van project 11 komt hier.',
+  },
+  {
+    title: 'Project 12',
+    description: 'Korte beschrijving van project 12 komt hier.',
+  },
+  {
+    title: 'Project 13',
+    description: 'Korte beschrijving van project 13 komt hier.',
+  },
+  {
+    title: 'Project 14',
+    description: 'Korte beschrijving van project 14 komt hier.',
+  },
+  {
+    title: 'Project 15',
+    description: 'Korte beschrijving van project 15 komt hier.',
+  },
+];
 
 function App() {
   return (
     <div className="relative min-h-screen bg-black text-white">
-      {/* Animated eye background */}
       <EyeBackground />
+      <div className="relative z-10">
+        <Navbar />
+        <main className="pt-16">
+          <section id="home" className="flex justify-center items-center px-6 text-center">
+            <div className="text-center text-9xl font-bold bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">
+              Welkom bij mijn portfolio
+            </div>
+          </section>
+          <div className="mt-[1200px] flex flex-col gap-[300px]">
+            <div className="mx-auto w-full max-w-5xl px-6">
+              <h2 className="mb-10 text-center text-6xl font-bold bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">
+                Over Mij
+              </h2>
+              <About />
+            </div>
 
-      {/* Sticky navbar */}
-      <Navbar />
+            <div className="mx-auto w-full px-6 lg:w-2/3">
+              <h2 className="mb-10 text-center text-6xl font-bold bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">
+                Skills
+              </h2>
+              <SkillsSection />
+            </div>
 
-      {/* Page content sits on top of the background */}
-      <main className="relative z-10">
-        {/* ── Hero ── */}
-        <section
-          id="home"
-          className="flex flex-col items-center justify-center text-center px-6 py-40 min-h-screen"
-        >
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-            {HERO.name}
-          </h1>
-          <p className="text-lg md:text-xl text-white/60 mb-6">{HERO.tagline}</p>
-          <p className="max-w-xl text-white/50 text-sm md:text-base">{HERO.bio}</p>
-          <a
-            href="#projects"
-            className="mt-10 inline-block rounded-full border border-white/20 px-6 py-2.5 text-sm text-white/80 hover:bg-white/10 transition-colors"
-          >
-            View my work ↓
-          </a>
-        </section>
+            <div className="mx-auto w-full px-6 lg:w-2/3">
+              <h2 className="mb-10 text-center text-6xl font-bold bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">
+                Soft Skills
+              </h2>
+              <SoftSkillsSection />
+            </div>
 
-        {/* ── Projects ── */}
-        <section id="projects" className="px-6 py-20 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-2">Projects</h2>
-          <p className="text-white/50 mb-10 text-sm">Things I've built</p>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </div>
-        </section>
-
-        {/* ── Skills ── */}
-        <section id="skills" className="px-6 py-20 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-2">Skills</h2>
-          <p className="text-white/50 mb-10 text-sm">Technologies I work with</p>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {skills.map((group) => (
-              <div
-                key={group.category}
-                className="rounded-2xl border border-white/10 bg-white/5 p-5"
-              >
-                <h3 className="text-sm font-semibold text-white/80 uppercase tracking-wider mb-3">
-                  {group.category}
-                </h3>
-                <ul className="flex flex-col gap-2">
-                  {group.items.map((item) => (
-                    <li key={item} className="text-sm text-white/60">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+            <section id="projects" className="mx-auto w-full max-w-none px-6">
+              <h2 className="mb-10 text-center text-6xl font-bold bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">
+                Projects
+              </h2>
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-5">
+                {projectPlaceholders.map((project) => (
+                  <ProjectCard
+                    key={project.title}
+                    title={project.title}
+                    description={project.description}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+            </section>
 
-        {/* ── Education ── */}
-        <section id="education" className="px-6 py-20 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-2">Education</h2>
-          <p className="text-white/50 mb-10 text-sm">My academic background</p>
-          <div className="flex flex-col gap-6">
-            {education.map((entry) => (
-              <div
-                key={entry.degree}
-                className="rounded-2xl border border-white/10 bg-white/5 p-6"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                  <h3 className="font-semibold text-white text-lg">{entry.degree}</h3>
-                  <span className="text-xs text-white/40">{entry.period}</span>
+            <section id="contact" className="mx-auto w-full max-w-5xl px-6">
+              <h2 className="mb-10 text-center text-6xl font-bold bg-gradient-to-r from-blue-400 via-white to-blue-400 text-transparent bg-clip-text">
+                Contact
+              </h2>
+              <div className="rounded-2xl border border-white/20 bg-white/5 p-8 text-gray-200">
+                <p className="text-lg">
+                  Interesse in samenwerken of een vraag? Neem contact met me op via een van de kanalen hieronder.
+                </p>
+
+                <div className="mt-8 grid gap-4 md:grid-cols-2">
+                  <a
+                    href="mailto:jouw@email.com"
+                    className="rounded-xl border border-blue-400/30 bg-blue-500/10 p-4 transition hover:border-blue-300 hover:bg-blue-500/20"
+                  >
+                    <p className="text-sm uppercase tracking-wide text-blue-200">E-mail</p>
+                    <p className="mt-1 text-lg font-semibold text-white">jouw@email.com</p>
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/jouw-profiel"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-xl border border-blue-400/30 bg-blue-500/10 p-4 transition hover:border-blue-300 hover:bg-blue-500/20"
+                  >
+                    <p className="text-sm uppercase tracking-wide text-blue-200">LinkedIn</p>
+                    <p className="mt-1 text-lg font-semibold text-white">linkedin.com/in/jouw-profiel</p>
+                  </a>
+
+                  <a
+                    href="https://github.com/jouw-gebruikersnaam"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-xl border border-blue-400/30 bg-blue-500/10 p-4 transition hover:border-blue-300 hover:bg-blue-500/20"
+                  >
+                    <p className="text-sm uppercase tracking-wide text-blue-200">GitHub</p>
+                    <p className="mt-1 text-lg font-semibold text-white">github.com/jouw-gebruikersnaam</p>
+                  </a>
+
+                  <a
+                    href="tel:+310612345678"
+                    className="rounded-xl border border-blue-400/30 bg-blue-500/10 p-4 transition hover:border-blue-300 hover:bg-blue-500/20"
+                  >
+                    <p className="text-sm uppercase tracking-wide text-blue-200">Telefoon</p>
+                    <p className="mt-1 text-lg font-semibold text-white">+31 06 12 34 56 78</p>
+                  </a>
                 </div>
-                <p className="text-sm text-white/60">{entry.institution}</p>
-                {entry.description && (
-                  <p className="mt-2 text-sm text-white/40">{entry.description}</p>
-                )}
+
+                <p className="mt-8 text-base text-gray-300">
+                  Beschikbaar voor freelance opdrachten, stages en junior developer rollen.
+                </p>
               </div>
-            ))}
+            </section>
           </div>
-        </section>
-
-        {/* ── Contact ── */}
-        <section id="contact" className="px-6 py-20 max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-2">Contact</h2>
-          <p className="text-white/50 mb-10 text-sm">Get in touch</p>
-          <div className="flex items-center justify-center gap-8 flex-wrap">
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-2 text-white/60 hover:text-white transition-colors"
-            >
-              <Mail size={18} />
-              {CONTACT.email}
-            </a>
-            <a
-              href={CONTACT.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-white/60 hover:text-white transition-colors"
-            >
-              <Github size={18} />
-              GitHub
-            </a>
-            <a
-              href={CONTACT.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-white/60 hover:text-white transition-colors"
-            >
-              <Linkedin size={18} />
-              LinkedIn
-            </a>
-          </div>
-        </section>
-
-        <footer className="text-center text-xs text-white/20 py-8 border-t border-white/10">
-          © {new Date().getFullYear()} {HERO.name}. Built with React + Vite.
-        </footer>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
 
 export default App;
-

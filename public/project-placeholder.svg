@@ -1,0 +1,18 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E3A8A" />
+      <stop offset="1" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="350" x2="1200" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA" />
+      <stop offset="1" stop-color="#FFFFFF" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" rx="32" fill="url(#bg)" />
+  <rect x="120" y="220" width="960" height="16" rx="8" fill="url(#line)" opacity="0.9"/>
+  <rect x="120" y="260" width="760" height="12" rx="6" fill="#BFDBFE" opacity="0.8"/>
+  <rect x="120" y="300" width="580" height="12" rx="6" fill="#BFDBFE" opacity="0.6"/>
+  <circle cx="1040" cy="540" r="72" fill="#60A5FA" opacity="0.35"/>
+  <text x="120" y="520" fill="#E5E7EB" font-size="72" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Project Placeholder</text>
+</svg>

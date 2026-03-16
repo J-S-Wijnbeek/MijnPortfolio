@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 export default function EyeBackground() {
-  const [isMouseOnScreen, setIsMouseOnScreen] = useState(false); // default closed
+  const [isMouseOnScreen, setIsMouseOnScreen] = useState(true);
   const [isWinking, setIsWinking] = useState(false);
   const mouseX = useRef(window.innerWidth / 2);
   const mouseY = useRef(window.innerHeight / 2);
@@ -22,12 +22,12 @@ export default function EyeBackground() {
 
   // Track mouse position and compute pupil offsets
   useEffect(() => {
+    const maxOffset = 25;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!isMouseOnScreen) setIsMouseOnScreen(true);
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
-
-      const maxOffset = 25;
 
       if (leftEyeRef.current) {
         const rect = leftEyeRef.current.getBoundingClientRect();
@@ -73,12 +73,60 @@ export default function EyeBackground() {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
 
+    // Use named handler for cleanup
+    function handleDocumentMouseOut(e: MouseEvent) {
+      if (!e.relatedTarget) {
+        handleMouseLeave();
+      }
+    }
+    function handleWindowBlur() {
+      handleMouseLeave();
+    }
+    document.addEventListener('mouseout', handleDocumentMouseOut);
+    window.addEventListener('blur', handleWindowBlur);
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseout', handleDocumentMouseOut);
+      window.removeEventListener('blur', handleWindowBlur);
     };
   }, [leftPupilX, leftPupilY, rightPupilX, rightPupilY,
       leftHighlightX, leftHighlightY, rightHighlightX, rightHighlightY]);
+
+  // Idle look-around when mouse is off-page
+  useEffect(() => {
+    if (isMouseOnScreen) return;
+
+    const maxOffset = 25;
+    const interval = setInterval(() => {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = Math.random() * maxOffset;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+
+      leftPupilX.set(x);
+      leftPupilY.set(y);
+      rightPupilX.set(x);
+      rightPupilY.set(y);
+      leftHighlightX.set(x * 0.3);
+      leftHighlightY.set(y * 0.3);
+      rightHighlightX.set(x * 0.3);
+      rightHighlightY.set(y * 0.3);
+    }, 1200);
+
+    return () => clearInterval(interval);
+  }, [
+    isMouseOnScreen,
+    leftPupilX,
+    leftPupilY,
+    rightPupilX,
+    rightPupilY,
+    leftHighlightX,
+    leftHighlightY,
+    rightHighlightX,
+    rightHighlightY,
+  ]);
 
   // Wink every 5 seconds
   useEffect(() => {
@@ -89,7 +137,7 @@ export default function EyeBackground() {
     return () => clearInterval(interval);
   }, []);
 
-  const eyeHeight = isMouseOnScreen && !isWinking
+  const eyeHeight = !isWinking
     ? 'min(12vw, 150px)'
     : '4px';
 
@@ -101,30 +149,37 @@ export default function EyeBackground() {
     justifyContent: 'center',
   };
 
-  const pupilVisible = isMouseOnScreen && !isWinking;
+  const pupilVisible = !isWinking;
 
   // Slit style for closed eyes
   const slitStyle = {
-    width: 'min(8vw, 100px)',
+    width: '100%',
     height: '4px',
-    background: 'black',
+    background: '#dbeafe',
     borderRadius: '2px',
-    margin: '0 auto',
-    boxShadow: '0 0 8px 2px #222',
+    margin: 0,
+    boxShadow: '0 0 10px 2px rgba(96, 165, 250, 0.45)',
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '0',
+    transform: 'translateY(-50%)',
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
+    <div
+      className="absolute inset-x-0 top-0 h-[80vh] flex items-start justify-center pt-72"
+      style={{zIndex: 0, pointerEvents: 'none', opacity: 0.78}}
+    >
       <div className="flex items-center gap-40">
         {/* Left eye */}
         <div
           ref={leftEyeRef}
-          className="relative bg-white rounded-full overflow-hidden"
+          className="relative rounded-full overflow-hidden border border-white/25 bg-blue-100/70"
           style={{ width: 'min(38vw, 460px)', ...eyeStyle }}
         >
           {pupilVisible ? (
             <motion.div
-              className="absolute rounded-full bg-black"
+              className="absolute rounded-full bg-blue-900"
               style={{
                 width: 'min(8vw, 100px)',
                 height: 'min(8vw, 100px)',
@@ -149,19 +204,21 @@ export default function EyeBackground() {
               />
             </motion.div>
           ) : (
-            <div style={slitStyle} />
+            <div style={{width:'100%',height:'100%',position:'relative'}}>
+              <div style={slitStyle} />
+            </div>
           )}
         </div>
 
         {/* Right eye */}
         <div
           ref={rightEyeRef}
-          className="relative bg-white rounded-full overflow-hidden"
+          className="relative rounded-full overflow-hidden border border-white/25 bg-blue-100/70"
           style={{ width: 'min(38vw, 460px)', ...eyeStyle }}
         >
           {pupilVisible ? (
             <motion.div
-              className="absolute rounded-full bg-black"
+              className="absolute rounded-full bg-blue-900"
               style={{
                 width: 'min(8vw, 100px)',
                 height: 'min(8vw, 100px)',
@@ -186,7 +243,9 @@ export default function EyeBackground() {
               />
             </motion.div>
           ) : (
-            <div style={slitStyle} />
+            <div style={{width:'100%',height:'100%',position:'relative'}}>
+              <div style={slitStyle} />
+            </div>
           )}
         </div>
       </div>
